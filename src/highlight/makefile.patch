@@ -1,0 +1,13 @@
+--- src/makefile	2017-03-06 01:15:25.000000000 -0800
++++ src/makefile2	2017-03-06 01:16:24.000000000 -0800
+@@ -12,8 +12,8 @@
+ 
+ # See src/gui-qt/highlight.pro for the Qt GUI compilation options
+ 
+-#CXX=clang++
+-CXX=g++
++CXX=clang++
++#CXX=g++
+ 
+ # was: qmake-qt5
+ QMAKE=qmake
