@@ -4,6 +4,7 @@ let
   fastarcheyosx = pkgs.callPackage ./fastarcheyosx/c.nix {};
   scmpuff = pkgs.callPackage ./scmpuff/c.nix {};
   highlight = pkgs.callPackage ./highlight/c.nix {};
+  bat = pkgs.callPackage ./bat/c.nix {};
   archeyProg = if pkgs.stdenv.isDarwin then fastarcheyosx else pkgs.screenfetch;
 in
 {
@@ -40,6 +41,7 @@ in
     coreutils
     go
     fasd
+    bat
 
     nox
     nodejs

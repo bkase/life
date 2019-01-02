@@ -33,7 +33,6 @@
     set nopaste
     set cursorline
     set laststatus=2
-    set relativenumber
     set undofile
 
     " show commands
@@ -61,7 +60,6 @@
     set number
 
     " search
-    set hlsearch
     set incsearch
     set ignorecase
     set smartcase
@@ -202,8 +200,6 @@
     autocmd ShellCmdPost *.hs redraw!
     let g:haddock_browser = '/usr/bin/lynx'
 
-    "fix the bad search color with solarized
-    hi Search ctermbg=7
     "make solarized dark the default
     set bg=dark
 
@@ -327,32 +323,32 @@ endfunction
     " because vim-javascript clobbers the completion
     autocmd! BufRead *.js set omnifunc=flowcomplete#Complete
 
-    " HACK ocaml for O(1) Labs
-    "let s:ocamlmerlin="/home/bkase/.opam/4.05.0/share/merlin"
-    "execute "set rtp+=".s:ocamlmerlin."/vim"
-    "execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
-    "let g:syntastic_ocaml_checkers=['merlin']
-
     augroup fmt
       autocmd!
-      autocmd BufEnter *.ml set autoread
-      autocmd BufEnter *.mli set autoread
-      autocmd BufWritePost *.ml undojoin | exec "!ocamlformat --inplace %:p" | redraw!
-      autocmd BufWritePost *.mli undojoin | exec "!ocamlformat --inplace %:p" | redraw!
+      autocmd BufWritePre * undojoin | Neoformat
     augroup END
 
     " Ocaml and Reason
     if !empty(system('which opam'))
-     " Merlin plugin
-      let s:ocamlmerlin=system('stripped-opam-config-var-share.sh') . "/merlin"
-      execute "set rtp+=".s:ocamlmerlin."/vim"
-      execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
-      let g:syntastic_ocaml_checkers=['merlin']
+      if !empty(system('which stripped-opam-config-var-share.sh'))
 
-     " Reason plugin which uses Merlin
-      let s:reasondir=system('stripped-opam-config-var-share.sh') . "/reason"
-      execute "set rtp+=".s:reasondir."/editorSupport/VimReason"
-      let g:syntastic_reason_checkers=['merlin']
+        " Merlin plugin
+        let s:ocamlmerlin=system('stripped-opam-config-var-share.sh') . "/merlin"
+        execute "set rtp+=".s:ocamlmerlin."/vim"
+        execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+        let g:syntastic_ocaml_checkers=['merlin']
+
+        " Reason plugin which uses Merlin
+        let s:reasondir=system('stripped-opam-config-var-share.sh') . "/reason"
+        execute "set rtp+=".s:reasondir."/editorSupport/VimReason"
+        let g:syntastic_reason_checkers=['merlin']
+      else
+        " HACK ocaml for O(1) Labs
+        let s:ocamlmerlin="/home/bkase/.opam/4.07/share/merlin"
+        execute "set rtp+=".s:ocamlmerlin."/vim"
+        execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+        let g:syntastic_ocaml_checkers=['merlin']
+      endif
     else
     endif
 
@@ -364,7 +360,8 @@ endfunction
     nnoremap <leader>b :Buffers<CR>
     nnoremap <leader>/ :BLines<CR>
     nnoremap <leader>r :GFiles?<CR>
-    nnoremap <leader>g :Rg<CR>
+    nnoremap <leader>g :GGrep<CR>
+
     let g_fzf_layout = { 'down': '~40%' }
     set rtp+=~/.fzf
 
@@ -377,9 +374,10 @@ endfunction
     let g:fzf_files_options =
       \ '--preview "(highlight -O ansi {} | cat {}) 2> /dev/null | head -'.&lines.'"'
 
-    command! -bang -nargs=* Rg
-      \ call fzf#vim#grep(
-      \    'rg --column --line-number --no-heading --color=always --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%'), <bang>0)
+    command! -bang -nargs=* GGrep
+     \ call fzf#vim#grep(
+     \   'git grep --line-number '.shellescape(<q-args>), 0,
+     \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 
     " Golang wants REAL TABS
     autocmd FileType go autocmd BufWritePre <buffer> Fmt

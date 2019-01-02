@@ -93,6 +93,24 @@
         sha256 = "1xr90a8wvjfkgw1yrh0zcvpvp9ma6z0wqkl8v8pabf20vckgy2q0";
       };
     };
+
+    neoformat = pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "neoformat-2019-01-02";
+      src = pkgs.fetchgit {
+        url = "git://github.com/bkase/neoformat";
+        rev = "eba929ca4e3e47baf1518767ad13e21e1ec75b3d";
+        sha256 = "0z6kyhsdcndnhdilajykyvncjax453900rqsq21bahknar697j4s";
+      };
+    };
+
+    vim-conflicted = pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "conflicted-2018-07-19";
+      src = pkgs.fetchgit {
+        url = "git://github.com/christoomey/vim-conflicted";
+        rev = "451347a72d96e521d6a7c88452eadbc06a71488b";
+        sha256 = "10j5bvx7yg2v5pyxnk12fzzvqk0vy7h1vzp61cmxyp1m63m8vd57";
+      };
+    };
   });
   programs.vim.plugins = [ { names = [
      "coquille"
@@ -131,6 +149,10 @@
      "dhall-vim"
 
      "vim-nix"
+
+     "neoformat"
+     "vim-conflicted"
+     "vim-easymotion"
 
      "colorizer"
      "rainbow"
