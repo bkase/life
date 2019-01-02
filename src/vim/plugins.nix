@@ -115,6 +115,7 @@
   programs.vim.plugins = [ { names = [
      "coquille"
      "vimbufsync"
+     "ale"
 
      "vim-addon-nix"
      "youcompleteme"

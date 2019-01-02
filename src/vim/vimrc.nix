@@ -328,6 +328,9 @@ endfunction
       autocmd BufWritePre * undojoin | Neoformat
     augroup END
 
+    " Don't let colorizer make merlin harder to use
+    let g:colorizer_nomap = 1
+
     " Ocaml and Reason
     if !empty(system('which opam'))
       if !empty(system('which stripped-opam-config-var-share.sh'))
