@@ -112,9 +112,6 @@
     nnoremap / /\v
     vnoremap / /\v
 
-    " clear highlights with ,<space>
-    nnoremap <leader><space> :noh<cr>
-
     " map tab to %
     nnoremap <tab> %
 
@@ -176,18 +173,18 @@
     " HACK: fix broken paste by making it explicit
     nnoremap p ""p
 
+    " macro expansion technology
+    autocmd BufRead,BufNewFile * :inoremap <buffer> <leader><space> <C-O>/\v\<\+\+\><CR><C-O>c4l
+    autocmd BufRead,BufNewFile * :nnoremap <buffer> <leader><space> /\v\<\+\+\><CR>c4l
+
     "LaTeX
-    "Compile to pdf
-    let g:Tex_CompileRule_dvi = 'pdflatex $*'
     "auto recompile upon save
     autocmd BufWritePost *.tex !pdflatex %
-    "custom folds
-    let g:Tex_FoldedEnvironments = 'question,verbatim,comment,eq,gather,itemize,align,figure,table,thebibliography,keywords,abstract,titlepage'
     "awesome macros
-    autocmd BufRead,BufNewFile *.tex call IMAP('`s', '\sum_{<++>}^{<++>}<++>', 'tex')
-    autocmd BufRead,BufNewFile *.tex call IMAP('`m', '\mathbb{<++>}<++>', 'tex')
-    autocmd BufRead,BufNewFile *.tex call IMAP('`v', '\verb~<++>~<++>', 'tex')
-    autocmd BufRead,BufNewFile *.tex call IMAP('`l', '\lambda', 'tex')
+    autocmd BufRead,BufNewFile *.tex :inoremap `s \sum_{<++>}^{<++>}<++><C-O>/\v\<\+\+\><CR><C-O>c4l
+    autocmd BufRead,BufNewFile *.tex :inoremap `m \mathbb{<++>}<++><C-O>/\v\<\+\+\><CR><C-O>c4l
+    autocmd BufRead,BufNewFile *.tex :inoremap `v \verb~<++>~<++><C-O>/\v\<\+\+\><CR><C-O>c4l
+    autocmd BufRead,BufNewFile *.tex :inoremap `a \begin{align*}<CR><++><CR>\end{align*}<C-O>/\v\<\+\+\><CR><C-O>c4l
 
     "make sig files have proper highlighting
     autocmd BufRead,BufNewFile *.sig set filetype=sml
