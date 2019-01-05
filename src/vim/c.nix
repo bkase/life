@@ -3,11 +3,14 @@
 let vimrc =
     pkgs.callPackage ./vimrc.nix {};
 in
+let plugins =
+  pkgs.callPackage ./plugins.nix {};
+in
 {
-  imports = [
-    ./plugins.nix
-  ];
-
-  programs.vim.enable = true;
-  programs.vim.vimConfig = vimrc.config;
+  programs.vim.package = pkgs.my_vim_configurable.customize {
+    name = "vim";
+    vimrcConfig.customRC = vimrc.config;
+    vimrcConfig.vam.knownPlugins = pkgs.vimPlugins // plugins.extraKnownPlugins;
+    vimrcConfig.vam.pluginDictionaries = plugins.plugins;
+  };
 }

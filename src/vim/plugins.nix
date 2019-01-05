@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  programs.vim.extraKnownPlugins = ({
+  extraKnownPlugins = ({
     lightline-ale = pkgs.vimUtils.buildVimPluginFrom2Nix {
       name = "lightline-ale-2018-06-12";
       src = pkgs.fetchgit {
@@ -112,8 +112,8 @@
       };
     };
   });
-  programs.vim.plugins = [ { names = [
-     "coquille"
+  plugins = [ { names = [
+     # "coquille"
      "vimbufsync"
      "ale"
 
@@ -126,30 +126,11 @@
      "fzf-vim"
      "fzfWrapper"
 
-     "vim-elixir"
-
-     "vim-flow"
-     "vim-javascript"
-     "vim-jsx"
-     "emmet-vim"
-     "psc-ide-vim"
-     "purescript-vim"
-     "vim-jinja"
-     "vim-reason-loader"
-     "vim-coffee-script"
-
      "gitgutter"
      "fugitive"
-     "vim-markdown"
 
      "lightline-ale"
      "vimproc"
-
-     "idris-vim"
-     "vim-pony"
-     "dhall-vim"
-
-     "vim-nix"
 
      "neoformat"
      "vim-conflicted"
@@ -159,5 +140,28 @@
      "rainbow"
      "vim-illuminate"
      "vim-search-pulse"
-    ]; } ];
+    ]; }
+     # "vim-elixir"
+    { names = [
+     "vim-flow"
+     "vim-javascript"
+     "vim-jsx"
+    ]; ft_regex = "^\.jsx\$|^\.js$"; }
+
+    { names = [ "emmet-vim" ]; ft_regex = "^\.html$"; }
+
+    { names = [
+     "psc-ide-vim"
+     "purescript-vim"
+    ]; ft_regex = "^\.purs\$"; }
+
+    { names = [ "vim-jinja" ]; ft_regex = "^\.jinja\$"; }
+    { names = [ "vim-reason-loader" ]; ft_regex = "^\.re\$|^\.rei\$"; }
+    { names = [ "vim-coffee-script" ]; ft_regex = "^\.coffee\$"; }
+    { names = [ "vim-markdown" ]; ft_regex = "^\.md\$|^\.markdown\$"; }
+    { names = [ "idris-vim" ]; ft_regex = "^\.idr\$"; }
+    { names = [ "vim-pony" ]; ft_regex = "^\.pony\$"; }
+    { names = [ "dhall-vim" ]; ft_regex = "^\.dhall\$"; }
+    { names = [ "vim-nix" ]; ft_regex = "^\.nix\$"; }
+  ];
 }

@@ -7,7 +7,7 @@
     ./src/vim/c.nix
   ];
 
-  environment.systemPackages = [ config.services.chunkwm.package ];
+  environment.systemPackages = [ config.services.chunkwm.package config.programs.vim.package ];
 
   environment.extraOutputsToInstall = [ "man" ];
 
@@ -49,6 +49,10 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (self: super: {
+      my_vim_configurable = super.vim_configurable.override {
+        guiSupport = "no";
+      };
+
       darwin-zsh-completions = super.runCommandNoCC "darwin-zsh-completions-0.0.0"
         { preferLocalBuild = true; }
         ''

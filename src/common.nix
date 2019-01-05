@@ -28,7 +28,8 @@ in
     ocamlPackages.merlin
     ocamlPackages.camlp4
 
-    coq
+    # Doesn't build on macOS right now
+    # coq
 
     asciinema
     fzf
@@ -47,11 +48,6 @@ in
     nodejs
     pandoc
     ponyc
-    dhall
-    dhall.prelude
-    dhall-nix
-    dhall-bash
-    dhall-json
 
     texlive.combined.scheme-full
   ];
