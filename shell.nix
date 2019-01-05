@@ -4,8 +4,8 @@ let
   plugins =
     pkgs.callPackage ./src/vim/plugins.nix {};
   vimrcConfig = {
-    vam.knownPlugins = pkgs.vimPlugins // plugins.programs.vim.extraKnownPlugins;
-    vam.pluginDictionaries = plugins.programs.vim.plugins;
+    vam.knownPlugins = pkgs.vimPlugins // plugins.extraKnownPlugins;
+    vam.pluginDictionaries = plugins.plugins;
     customRC = (pkgs.callPackage ./src/vim/vimrc.nix {}).config;
   };
   myVim = pkgs.vim_configurable.customize { name = "vim"; inherit vimrcConfig; };
