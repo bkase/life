@@ -172,10 +172,11 @@
 
     " HACK: fix broken paste by making it explicit
     nnoremap p ""p
+    nnoremap P ""P
 
     " macro expansion technology
-    autocmd BufRead,BufNewFile * :inoremap <buffer> <leader><space> <C-O>/\v\<\+\+\><CR><C-O>c4l
-    autocmd BufRead,BufNewFile * :nnoremap <buffer> <leader><space> /\v\<\+\+\><CR>c4l
+    autocmd BufRead,BufNewFile * :inoremap <buffer> <leader>; <C-O>/\v\<\+\+\><CR><C-O>c4l
+    autocmd BufRead,BufNewFile * :nnoremap <buffer> <leader>; /\v\<\+\+\><CR>c4l
 
     "LaTeX
     "auto recompile upon save
