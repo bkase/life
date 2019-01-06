@@ -49,6 +49,8 @@ in
     pandoc
     ponyc
 
+    rustup
+
     texlive.combined.scheme-full
   ];
 }
