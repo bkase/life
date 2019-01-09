@@ -259,6 +259,9 @@ endfunction
     let g:ale_lint_on_text_changed = 'never'
     let g:ale_lint_on_save = 1
 
+    " rust ale
+    let g:ale_linters = {'rust': ['rls', 'rustfmt', 'cargo']}
+
     highlight ALEErrorSign ctermbg=0
     highlight ALEWarningSign ctermbg=0
     highlight clear ALEWarning
@@ -330,27 +333,24 @@ endfunction
     let g:colorizer_nomap = 1
 
     " Ocaml and Reason
-    if !empty(system('which opam'))
-      if !empty(system('which stripped-opam-config-var-share.sh'))
+    let s:my_uname = system("uname -s | tr -cd '[[:alnum:]]._-'")
+    if s:my_uname == "Darwin"
+      " Merlin plugin
+      let g:ocamlmerlin=system("/usr/local/bin/opam config var share | tr -cd '[[:alnum:]]/._-'") . "/merlin"
+      execute "set rtp+=".g:ocamlmerlin."/vim"
+      execute "set rtp+=".g:ocamlmerlin."/vimbufsync"
+      let g:syntastic_ocaml_checkers=['merlin']
 
-        " Merlin plugin
-        let s:ocamlmerlin=system('stripped-opam-config-var-share.sh') . "/merlin"
-        execute "set rtp+=".s:ocamlmerlin."/vim"
-        execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
-        let g:syntastic_ocaml_checkers=['merlin']
-
-        " Reason plugin which uses Merlin
-        let s:reasondir=system('stripped-opam-config-var-share.sh') . "/reason"
-        execute "set rtp+=".s:reasondir."/editorSupport/VimReason"
-        let g:syntastic_reason_checkers=['merlin']
-      else
-        " HACK ocaml for O(1) Labs
-        let s:ocamlmerlin="/home/bkase/.opam/4.07/share/merlin"
-        execute "set rtp+=".s:ocamlmerlin."/vim"
-        execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
-        let g:syntastic_ocaml_checkers=['merlin']
-      endif
+      " Reason plugin which uses Merlin
+      "let s:reasondir=system('stripped-opam-config-var-share.sh') . "/reason"
+      "execute "set rtp+=".s:reasondir."/editorSupport/VimReason"
+      "let g:syntastic_reason_checkers=['merlin']
     else
+      " HACK ocaml for O(1) Labs
+      let s:ocamlmerlin="/home/bkase/.opam/4.07/share/merlin"
+      execute "set rtp+=".s:ocamlmerlin."/vim"
+      execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+      let g:syntastic_ocaml_checkers=['merlin']
     endif
 
     " Find stuff
