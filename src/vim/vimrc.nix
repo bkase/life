@@ -377,7 +377,7 @@ endfunction
 
     command! -bang -nargs=* GGrep
      \ call fzf#vim#grep(
-     \   'git grep --line-number '.shellescape(<q-args>), 0,
+     \   'git grep --recurse-submodules --line-number '.shellescape(<q-args>), 0,
      \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 
     " Golang wants REAL TABS

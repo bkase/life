@@ -6,6 +6,12 @@ let
   highlight = pkgs.callPackage ./highlight/c.nix {};
   bat = pkgs.callPackage ./bat/c.nix {};
   archeyProg = if pkgs.stdenv.isDarwin then fastarcheyosx else pkgs.screenfetch;
+  my-python-packages = python-packages: with python-packages; [
+    requests
+    jinja2
+    # other python packages you want
+  ];
+  python-with-my-packages = pkgs.python3.withPackages my-python-packages;
 in
 {
   nixpkgs.config.packageOverrides = pkgs: rec {
@@ -52,5 +58,7 @@ in
     rustup
 
     texlive.combined.scheme-full
+
+    python-with-my-packages
   ];
 }
