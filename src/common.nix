@@ -60,5 +60,6 @@ in
     texlive.combined.scheme-full
 
     python-with-my-packages
+    jrnl
   ];
 }
