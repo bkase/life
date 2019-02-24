@@ -38,12 +38,12 @@
       };
     };
 
-    vim-reason-loader = pkgs.vimUtils.buildVimPluginFrom2Nix {
-      name = "vim-reason-loader-2017-04-29";
+    vim-reason-plus = pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "vim-reason-plus-2018-08-22";
       src = pkgs.fetchgit {
-        url = "git://github.com/reasonml/vim-reason-loader";
-        rev = "52dec4a6fd2a1d1dcc270b7360b135cd41acca0f";
-        sha256 = "14wpqam370k64q2ivq3wvbhgml4gglzza8hvdz2x6dbhy473linv";
+        url = "git://github.com/reasonml-editor/vim-reason-plus";
+        rev = "e4460795d80329ec20e9ddc7b535f1cd2731acc8";
+        sha256 = "07351b58afid3jwxmw9xmplpkxjy4hpbkfkw0lqapndn4a8xjnm0";
       };
     };
 
@@ -95,11 +95,11 @@
     };
 
     neoformat = pkgs.vimUtils.buildVimPluginFrom2Nix {
-      name = "neoformat-2019-01-02";
+      name = "neoformat-2019-02-01";
       src = pkgs.fetchgit {
-        url = "git://github.com/bkase/neoformat";
-        rev = "eba929ca4e3e47baf1518767ad13e21e1ec75b3d";
-        sha256 = "0z6kyhsdcndnhdilajykyvncjax453900rqsq21bahknar697j4s";
+        url = "git://github.com/sbdchd/neoformat";
+        rev = "e57ec7889bfb4371c5a4241183204d0bd1f8aea8";
+        sha256 = "0ynln0wn0kg5s6n3v31bijwkr0cghv5jzlkawaj4ihxnx44lf839";
       };
     };
 
@@ -136,6 +136,8 @@
      "vim-conflicted"
      "vim-easymotion"
 
+     "vim-reason-plus"
+
      "colorizer"
      "rainbow"
      "vim-illuminate"
@@ -146,9 +148,9 @@
      "vim-flow"
      "vim-javascript"
      "vim-jsx"
-    ]; ft_regex = "^\.jsx\$|^\.js$"; }
+    ]; ft_regex = "^\.jsx\$|^\.js\$"; }
 
-    { names = [ "emmet-vim" ]; ft_regex = "^\.html$"; }
+    { names = [ "emmet-vim" ]; ft_regex = "^\.html\$"; }
 
     { names = [
      "psc-ide-vim"
@@ -156,7 +158,7 @@
     ]; ft_regex = "^\.purs\$"; }
 
     { names = [ "vim-jinja" ]; ft_regex = "^\.jinja\$"; }
-    { names = [ "vim-reason-loader" ]; ft_regex = "^\.re\$|^\.rei\$"; }
+    { names = [ "vim-reason-plus" ]; filename_regex = "\.re\$"; }
     { names = [ "vim-coffee-script" ]; ft_regex = "^\.coffee\$"; }
     { names = [ "vim-markdown" ]; ft_regex = "^\.md\$|^\.markdown\$"; }
     { names = [ "idris-vim" ]; ft_regex = "^\.idr\$"; }

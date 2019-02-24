@@ -340,11 +340,6 @@ endfunction
       execute "set rtp+=".g:ocamlmerlin."/vim"
       execute "set rtp+=".g:ocamlmerlin."/vimbufsync"
       let g:syntastic_ocaml_checkers=['merlin']
-
-      " Reason plugin which uses Merlin
-      "let s:reasondir=system('stripped-opam-config-var-share.sh') . "/reason"
-      "execute "set rtp+=".s:reasondir."/editorSupport/VimReason"
-      "let g:syntastic_reason_checkers=['merlin']
     else
       " HACK ocaml for O(1) Labs
       let s:ocamlmerlin="/home/bkase/.opam/4.07/share/merlin"
@@ -353,7 +348,16 @@ endfunction
       let g:syntastic_ocaml_checkers=['merlin']
     endif
 
+    " Enable merlin on ReasonML too
+    autocmd! FileType reason call merlin#Register() | let g:ycm_semantic_triggers.reason = ['.']
+
     " Find stuff
+    let g:EasyMotion_do_mapping = 0
+    let g:EasyMotion_smartcase = 1
+
+    nmap s <Plug>(easymotion-overwin-f)
+    map <leader>j <Plug>(easymotion-j)
+    map <leader>k <Plug>(easymotion-k)
     nnoremap gt :bnext<CR>
     nnoremap gT :bprevious<CR>
     nnoremap <c-p> :Files<CR>
@@ -382,8 +386,6 @@ endfunction
 
     " Golang wants REAL TABS
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
-
-    nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
     "
     " HASKELL
