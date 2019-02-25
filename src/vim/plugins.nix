@@ -142,6 +142,8 @@
      "rainbow"
      "vim-illuminate"
      "vim-search-pulse"
+
+     "vim-wakatime"
     ]; }
      # "vim-elixir"
     { names = [
