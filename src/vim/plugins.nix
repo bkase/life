@@ -111,14 +111,23 @@
         sha256 = "10j5bvx7yg2v5pyxnk12fzzvqk0vy7h1vzp61cmxyp1m63m8vd57";
       };
     };
+
+    coc-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "coc-0.0.61";
+      src = pkgs.fetchgit {
+        url = "git://github.com/neoclide/coc.nvim";
+        rev = "739bcaa607218343ab0c975d630d7ddb4395ed34";
+        sha256 = "1as2hb4kfq1m0nq7vp2ibkfq8n219ykr04qx4qadg97s7iky4yx4";
+      };
+    };
+
   });
   plugins = [ { names = [
      # "coquille"
      "vimbufsync"
-     "ale"
+     "coc-nvim"
 
      "vim-addon-nix"
-     "youcompleteme"
      "lightline-vim"
      "surround"
      "Solarized"
@@ -129,7 +138,6 @@
      "gitgutter"
      "fugitive"
 
-     "lightline-ale"
      "vimproc"
 
      "neoformat"

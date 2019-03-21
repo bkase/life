@@ -238,59 +238,18 @@ function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ""
 endfunction
 
-    "lightline
-    "let g:lightline#ale#indicator_checking = "\uf110"
-    "let g:lightline#ale#indicator_warnings = "\uf071"
-    "let g:lightline#ale#indicator_errors = "\uf05e"
-    "let g:lightline#ale#indicator_ok = "\uf00c"
-
-    let g:lightline#ale#indicator_checking = "⊚"
-    let g:lightline#ale#indicator_warnings = "⚠"
-    let g:lightline#ale#indicator_errors = "✖︎"
-    let g:lightline#ale#indicator_ok = "✓"
-
-    let g:ale_sign_column_always = 1
-    let g:ale_sign_error = '✖︎'
-    let g:ale_sign_warning = '⚠'
-    let g:ale_echo_cursor = 0
-    let g:ale_open_list = 1
-    let g:ale_keep_list_window_open = 1
-
-    let g:ale_lint_on_text_changed = 'never'
-    let g:ale_lint_on_save = 1
-
-    " rust ale
-    let g:ale_linters = {'rust': ['rls', 'rustfmt', 'cargo']}
-
-    highlight ALEErrorSign ctermbg=0
-    highlight ALEWarningSign ctermbg=0
-    highlight clear ALEWarning
-    highlight clear ALEError
-
     let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+      \   'right': [ [ 'cocstatus'],
       \              [ 'lineinfo' ],
       \              [ 'percent' ] ]
       \ },
       \ 'component': {
       \   'lineinfo': ' %3l:%-2v',
-      \ },
-      \ 'component_expand': {
-      \   'linter_checking': 'lightline#ale#checking',
-      \   'linter_warnings': 'lightline#ale#warnings',
-      \   'linter_errors': 'lightline#ale#errors',
-      \   'linter_ok': 'lightline#ale#ok'
-      \ },
-      \ 'component_type': {
-      \   'linter_checking': 'left',
-      \   'linter_warnings': 'warning',
-      \   'linter_errors': 'error',
-      \   'linter_ok': 'left',
       \ },
       \ 'component_function': {
       \   'readonly': 'LightlineReadonly',
@@ -298,11 +257,11 @@ endfunction
       \   'fugitive': 'LightlineFugitive',
       \   'modified': 'LightlineModified',
       \   'mode': 'LightlineMode',
+      \   'cocstatus': 'coc#status',
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
-
 
     let g:javascript_conceal=1
     let g:javascript_plugin_jsdoc = 1
@@ -322,7 +281,7 @@ endfunction
     "let g:neomake_javascript_enabled_makers = ['eslint']
     "autocmd! BufWritePost * Neomake
     " because vim-javascript clobbers the completion
-    autocmd! BufRead *.js set omnifunc=flowcomplete#Complete
+    autocmd! BufRead *.js setlocal omnifunc=flowcomplete#Complete
 
     augroup fmt
       autocmd!
@@ -333,23 +292,90 @@ endfunction
     let g:colorizer_nomap = 1
 
     " Ocaml and Reason
-    let s:my_uname = system("uname -s | tr -cd '[[:alnum:]]._-'")
-    if s:my_uname == "Darwin"
+"    let s:my_uname = system("uname -s | tr -cd '[[:alnum:]]._-'")
+"    if s:my_uname == "Darwin"
       " Merlin plugin
-      let g:ocamlmerlin=system("/usr/local/bin/opam config var share | tr -cd '[[:alnum:]]/._-'") . "/merlin"
-      execute "set rtp+=".g:ocamlmerlin."/vim"
-      execute "set rtp+=".g:ocamlmerlin."/vimbufsync"
-      let g:syntastic_ocaml_checkers=['merlin']
-    else
-      " HACK ocaml for O(1) Labs
-      let s:ocamlmerlin="/home/bkase/.opam/4.07/share/merlin"
-      execute "set rtp+=".s:ocamlmerlin."/vim"
-      execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
-      let g:syntastic_ocaml_checkers=['merlin']
-    endif
+"      let g:ocamlmerlin=system("/usr/local/bin/opam config var share | tr -cd '[[:alnum:]]/._-'") . "/merlin"
+"      execute "set rtp+=".g:ocamlmerlin."/vim"
+"      execute "set rtp+=".g:ocamlmerlin."/vimbufsync"
+"      let g:syntastic_ocaml_checkers=['merlin']
+"    else
+"      " HACK ocaml for O(1) Labs
+"      let s:ocamlmerlin="/home/bkase/.opam/4.07/share/merlin"
+"      execute "set rtp+=".s:ocamlmerlin."/vim"
+"      execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+"      let g:syntastic_ocaml_checkers=['merlin']
+"    endif
 
     " Enable merlin on ReasonML too
-    autocmd! FileType reason call merlin#Register() | let g:ycm_semantic_triggers.reason = ['.']
+    " autocmd! FileType reason call merlin#Register() | let g:ycm_semantic_triggers.reason = ['.']
+
+    " CoC completion
+    " Smaller updatetime for CursorHold & CursorHoldI
+    set updatetime=300
+    " don't give |ins-completion-menu| messages.
+    set shortmess+=c
+    " always show signcolumns
+    set signcolumn=yes
+    let g:coc_snippet_next="\<C-l>"
+    " Use tab for trigger completion with characters ahead and navigate.
+    " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <c-space> for trigger completion.
+    inoremap <silent><expr> <c-space> coc#refresh()
+
+    " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+    " Coc only does snippet and additional edit on confirm.
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+    " Expand error
+    nmap <silent> <leader>d <Plug>(coc-diagnostic-info)
+    " Use `[c` and `]c` for navigate diagnostics
+    nmap <silent> [c <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+    " Remap keys for gotos
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Documentation
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+      if &filetype == 'vim'
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
+
+    " Fix autofix problem of current line
+    nmap <leader>qf  <Plug>(coc-fix-current)
+
+    let g:coc_status_error_sign = "✘"
+    let g:coc_status_warning_sign = "⚠"
+    highlight clear CocErrorSign
+    highlight clear CocWarningSign
+    highlight clear CocInfoSign
+    highlight clear CocHintSign
+    highlight CocErrorSign ctermbg=0
+    highlight CocWarningSign ctermbg=0
+    highlight CocInfoSign ctermbg=0
+    highlight CocHintSign ctermbg=0
+
+    " END coc
 
     " Find stuff
     let g:EasyMotion_do_mapping = 0
