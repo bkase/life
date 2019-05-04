@@ -24,6 +24,8 @@ in
     cmake
     bsdiff
 
+    awscli
+
     archeyProg
     scmpuff
     highlight
