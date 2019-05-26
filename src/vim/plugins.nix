@@ -113,11 +113,11 @@
     };
 
     coc-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-      name = "coc-0.0.61";
+      name = "coc-0.0.67";
       src = pkgs.fetchgit {
         url = "git://github.com/neoclide/coc.nvim";
-        rev = "739bcaa607218343ab0c975d630d7ddb4395ed34";
-        sha256 = "1as2hb4kfq1m0nq7vp2ibkfq8n219ykr04qx4qadg97s7iky4yx4";
+        rev = "8741e930c9c5cef97befd3e6f256b121aebe15b3";
+        sha256 = "0aqsgz76byqdddwk53gvyn20zk5xaw14dp2kjvl0v80801prqi93";
       };
     };
 
