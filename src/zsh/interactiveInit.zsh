@@ -42,7 +42,7 @@ cd `cat /tmp/.cwd`
 # TODO: Why do my aliases not work in environment.shellAliases anymore
 alias v="vim"
 alias vi="vim"
-alias ls="ls --color=auto --group-directories-first"
+alias ls="exa --group-directories-first"
 alias l="ls"
 alias mv="mv -i"
 alias cp="cp -i"

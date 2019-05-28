@@ -63,5 +63,6 @@ in
 
     python-with-my-packages
     jrnl
+    exa
   ];
 }
