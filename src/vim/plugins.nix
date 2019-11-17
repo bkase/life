@@ -112,15 +112,6 @@
       };
     };
 
-    coc-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-      name = "coc-0.0.67";
-      src = pkgs.fetchgit {
-        url = "git://github.com/neoclide/coc.nvim";
-        rev = "8741e930c9c5cef97befd3e6f256b121aebe15b3";
-        sha256 = "0aqsgz76byqdddwk53gvyn20zk5xaw14dp2kjvl0v80801prqi93";
-      };
-    };
-
   });
   plugins = [ { names = [
      # "coquille"

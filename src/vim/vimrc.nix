@@ -193,11 +193,6 @@
     autocmd BufRead,BufNewFile *.ispc set filetype=ispc
     autocmd BufRead,BufNewFile *todo.txt set filetype=todo.txt
 
-    "make haskell files override 'K' functionality
-    autocmd FileType haskell nnoremap K :call Haddock()
-    autocmd ShellCmdPost *.hs redraw!
-    let g:haddock_browser = '/usr/bin/lynx'
-
     "make solarized dark the default
     set bg=dark
 
@@ -282,6 +277,10 @@ endfunction
     "autocmd! BufWritePost * Neomake
     " because vim-javascript clobbers the completion
     autocmd! BufRead *.js setlocal omnifunc=flowcomplete#Complete
+
+    let g:neoformat_haskell_ormolu = { 'exe': 'ormolu', 'args': [] }
+
+    let g:neoformat_enabled_haskell = ['ormolu']
 
     augroup fmt
       autocmd!

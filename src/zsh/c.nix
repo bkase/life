@@ -49,7 +49,7 @@ in
     };
 
     environment.variables = {
-      PATH = "$PATH:~/.cargo/bin:~/go_appengine:~/.cabal/bin:/usr/local/opt/ruby/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/usr/local/share/npm/bin:/usr/texbin:/Users/bkase/android-sdk/tools:/Users/bkase/android-sdk/platform-tools:/Users/bkase/android-ndk-r9b:/Users/bkase/google-cloud-sdk/bin:~/bin:/Users/bkase/.local/bin:/Library/TeX/texbin";
+      PATH = "/usr/local/opt/ccache/libexec:$PATH:~/.cargo/bin:~/go_appengine:~/.cabal/bin:/usr/local/opt/ruby/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/usr/local/share/npm/bin:/usr/texbin:/Users/bkase/android-sdk/tools:/Users/bkase/android-sdk/platform-tools:/Users/bkase/android-ndk-r9b:/Users/bkase/google-cloud-sdk/bin:~/bin:/Users/bkase/.local/bin:/Library/TeX/texbin";
     };
 
   }

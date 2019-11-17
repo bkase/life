@@ -75,9 +75,6 @@ cmd - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d
 # open qutebrowser
 cmd + shift - return : ~/Scripts/qtb.sh
 
-# open mpv
-cmd - m : open -na /Applications/mpv.app $(pbpaste)
-
 # close focused window
 alt - w : chunkc tiling::window --close
 
