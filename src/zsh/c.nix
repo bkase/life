@@ -27,7 +27,9 @@ in
 
     programs.zsh = {
       enable = true;
-      enableBashCompletion = true;
+      # enable completion manually with the once a day hack
+      enableCompletion = false;
+      enableBashCompletion = false;
       enableFzfCompletion = true;
       enableFzfGit = true;
       enableFzfHistory = true;
@@ -35,6 +37,11 @@ in
       enableSyntaxHighlighting = true;
 
       promptInit = ''
+        # load completion DB and recreate once a day
+        source ${./fastCompleteInit.zsh}
+        # load bash completion
+        autoload -U +X bashcompinit && bashcompinit
+
         # enable my pure prompt fork
         fpath+=( "${pureZsh.out}/share/zsh/site-functions" $fpath )
 
