@@ -1,13 +1,16 @@
 { config, pkgs, ... }:
-
+let yabai = pkgs.callPackage ./src/yabai/c.nix {
+  inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa CoreServices IOKit ScriptingBridge;
+}; in
 {
   imports = [
+    ./src/yabai/service.nix
     ./src/common.nix
     ./src/zsh/c.nix
     ./src/vim/c.nix
   ];
 
-  environment.systemPackages = [ config.services.chunkwm.package config.programs.vim.package ];
+  environment.systemPackages = [ config.programs.vim.package yabai ];
 
   environment.extraOutputsToInstall = [ "man" ];
 
@@ -23,23 +26,12 @@
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
 
-  services.chunkwm.enable = true;
   services.skhd.enable = true;
 
   #programs.nix-index.enable = true;
 
   services.nix-daemon.enable = true;
 #  nix.package = pkgs.nixUnstable;
-
-  # ChunkWM (TODO)
-  services.chunkwm.package = pkgs.chunkwm;
-  services.chunkwm.hotload = false;
-  services.chunkwm.extraConfig = builtins.readFile ./src/chunkwmrc;
-#  services.chunkwm.plugins.dir = "${lib.getOutput "out" pkgs.chunkwm}/lib/chunkwm/plugins";
-#  services.chunkwm.plugins.list = [ "ffm" "tiling" ];
-#  services.chunkwm.plugins."tiling".config = ''
-#    chunkc set global_desktop_mode   bsp
-#  '';
 
   # SKHD
   services.skhd.skhdConfig = builtins.readFile ./src/skhdrc;
@@ -82,11 +74,7 @@
           EOF
         '';
 
-      # Fake package, not in nixpkgs.
-      chunkwm = super.runCommandNoCC "chunkwm-0.0.0" {} ''
-        mkdir $out
-      '';
-    })
+      })
   ];
 
   # Used for backwards compatibility, please read the changelog before changing.
