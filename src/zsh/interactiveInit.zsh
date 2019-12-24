@@ -2,6 +2,12 @@ export HISTFILE=~/.zshistory;
 export HISTSIZE=100000;
 export SAVEHIST=100000;
 
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
+
 # Less Colors for Man Pages
 # http://linuxtidbits.wordpress.com/2009/03/23/less-colors-for-man-pages/
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -126,6 +132,10 @@ vf() {
 vff() {
   res=$(find . -type f -print0 -name '*'"$1"'*' | fzf +m) && vim "$res" || return 1
 }
+
+export NIX_PATH="darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:/nix/var/nix/profiles/per-user/root/channels:$HOME/.nix-defexpr/channels"
+export NIX_SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
+
 
 eval $(opam config env)
 
