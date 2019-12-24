@@ -2,6 +2,9 @@
 let yabai = pkgs.callPackage ./src/yabai/c.nix {
   inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa CoreServices IOKit ScriptingBridge;
 }; in
+let
+  screenshots-folder = "/Users/bkase/screenshots";
+in
 {
   imports = [
     ./src/yabai/service.nix
@@ -25,9 +28,12 @@ let yabai = pkgs.callPackage ./src/yabai/c.nix {
 
   system.defaults.NSGlobalDomain.InitialKeyRepeat = 12;
   system.defaults.NSGlobalDomain.KeyRepeat = 1;
+  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = false;
   system.defaults.dock.autohide = true;
   system.defaults.dock.orientation = "left";
   system.defaults.dock.showhidden = true;
+  system.defaults.dock.mru-spaces = false;
+  system.defaults.screencapture.location = "${screenshots-folder}";
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.QuitMenuItem = true;
   system.defaults.finder.FXEnableExtensionChangeWarning = false;
