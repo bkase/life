@@ -2,6 +2,16 @@
 let yabai = pkgs.callPackage ./src/yabai/c.nix {
   inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa CoreServices IOKit ScriptingBridge;
 }; in
+let barbq =
+  let src = pkgs.fetchFromGitHub {
+      owner  = "bkase";
+      repo   = "barbq";
+      rev    = "50a75b51e7cfb98c697c7a7ce320ea6acb699c72";
+      sha256 = "0d1rfgz64kc7z4cxyasxm8rlaw8shfr1r7jqikjpragi0zlr2r1y";
+    };
+  in
+  (import "${src}/release.nix").barbq;
+in
 let
   screenshots-folder = "/Users/bkase/screenshots";
 in
@@ -13,6 +23,17 @@ in
     ./src/zsh/c.nix
     ./src/vim/c.nix
   ];
+
+  launchd.user.agents.barbq = {
+    path = [ "${barbq}/bin" config.environment.systemPath ];
+    serviceConfig.ProgramArguments = [ "/Users/bkase/Applications/Nix\ Apps/Alacritty.app/Contents/MacOS/alacritty"
+      "-d" "180" "1"
+      "--position" "0" "0"
+      "-e" "${barbq}/bin/barbq"
+    ];
+    serviceConfig.RunAtLoad = true;
+    serviceConfig.KeepAlive = true;
+  };
 
   system.activationScripts.postActivation.text = ''
       # Regenerate ~/.config files
@@ -27,7 +48,13 @@ in
       git config --global core.excludesfile ~/.gitignore
     '';
 
-  environment.systemPackages = [ config.programs.vim.package yabai pkgs.kitty pkgs.alacritty ];
+    environment.systemPackages = [
+      config.programs.vim.package
+      yabai
+      pkgs.kitty
+      pkgs.alacritty
+      barbq
+    ];
 
   environment.extraOutputsToInstall = [ "man" ];
 
