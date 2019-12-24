@@ -20,6 +20,11 @@ in
 
       # Ensure screenshots folder exists
       mkdir -p ${screenshots-folder}
+
+      # Regnerate .gitignore
+      echo "regenerating global .gitignore..."
+      cat ${./src/gitignore} > ~/.gitignore
+      git config --global core.excludesfile ~/.gitignore
     '';
 
   environment.systemPackages = [ config.programs.vim.package yabai pkgs.kitty pkgs.alacritty ];
