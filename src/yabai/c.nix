@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     owner = "koekeishiya";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0bfag249kk5k25imwxassz0wp6682gjzkhr38dibbrrqvdwig3pg";
+    sha256 = "1g8ilbnr0vs4gn4a17jdrlhl3x3jrb5c43cgpwnzxc518dcyba2f";
   };
 
   buildInputs = [ Carbon Cocoa CoreServices IOKit ScriptingBridge ];

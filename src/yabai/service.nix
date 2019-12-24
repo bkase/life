@@ -22,7 +22,7 @@ let yabai = pkgs.callPackage ./c.nix {
 
       # global settings
       yabai -m config mouse_follows_focus          on
-      yabai -m config focus_follows_mouse          on
+      yabai -m config focus_follows_mouse          autofocus
       yabai -m config window_placement             second_child
       yabai -m config window_topmost               off
       yabai -m config window_opacity               off
