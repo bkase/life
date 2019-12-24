@@ -5,12 +5,21 @@ let yabai = pkgs.callPackage ./src/yabai/c.nix {
 {
   imports = [
     ./src/yabai/service.nix
+    ./src/dotconfig/c.nix
     ./src/common.nix
     ./src/zsh/c.nix
     ./src/vim/c.nix
   ];
 
-  environment.systemPackages = [ config.programs.vim.package yabai ];
+  system.activationScripts.postActivation.text = ''
+      # Regenerate ~/.config files
+      /etc/dotconfig/bin/generate
+
+      # Ensure screenshots folder exists
+      mkdir -p ${screenshots-folder}
+    '';
+
+  environment.systemPackages = [ config.programs.vim.package yabai pkgs.kitty pkgs.alacritty ];
 
   environment.extraOutputsToInstall = [ "man" ];
 
