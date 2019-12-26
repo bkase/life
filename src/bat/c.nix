@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, fetchurl, lib } :
+{ stdenv, fetchzip, fetchurl, lib }:
 let
   version = "0.6.1";
   arch = if (stdenv.system == "x86_64-linux" || stdenv.isDarwin) then "x86_64" else "386";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   name = "bat-v${version}";
 
-  buildInputs = [ ];
+  buildInputs = [];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -25,10 +25,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A cat(1) clone with syntax highlighting and Git integration";
-    homepage    = https://github.com/sharkdp/bat;
-    license     = with licenses; [ asl20 /* or */ mit ];
+    homepage = https://github.com/sharkdp/bat;
+    license = with licenses; [ asl20 /* or */ mit ];
     maintainers = with maintainers; [ dywedir ];
-    platforms   = platforms.linux ++ platforms.darwin;
+    platforms = platforms.linux ++ platforms.darwin;
   };
 }
-

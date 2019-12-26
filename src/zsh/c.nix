@@ -20,43 +20,43 @@ let
     '';
   };
 in
-  {
-    environment.systemPackages = with pkgs; [
-      pureZsh
-    ];
+{
+  environment.systemPackages = with pkgs; [
+    pureZsh
+  ];
 
-    programs.zsh = {
-      enable = true;
-      # enable completion manually with the once a day hack
-      enableCompletion = false;
-      enableBashCompletion = false;
-      enableFzfCompletion = true;
-      enableFzfGit = true;
-      enableFzfHistory = true;
+  programs.zsh = {
+    enable = true;
+    # enable completion manually with the once a day hack
+    enableCompletion = false;
+    enableBashCompletion = false;
+    enableFzfCompletion = true;
+    enableFzfGit = true;
+    enableFzfHistory = true;
 
-      enableSyntaxHighlighting = true;
+    enableSyntaxHighlighting = true;
 
-      promptInit = ''
-        # load completion DB and recreate once a day
-        source ${./fastCompleteInit.zsh}
-        # load bash completion
-        autoload -U +X bashcompinit && bashcompinit
+    promptInit = ''
+      # load completion DB and recreate once a day
+      source ${./fastCompleteInit.zsh}
+      # load bash completion
+      autoload -U +X bashcompinit && bashcompinit
 
-        # enable my pure prompt fork
-        fpath+=( "${pureZsh.out}/share/zsh/site-functions" $fpath )
+      # enable my pure prompt fork
+      fpath+=( "${pureZsh.out}/share/zsh/site-functions" $fpath )
 
-        autoload -U promptinit && promptinit
-        prompt pure
+      autoload -U promptinit && promptinit
+      prompt pure
 
-        # show archey when prompt loads
-        archey
-      '';
+      # show archey when prompt loads
+      archey
+    '';
 
-      interactiveShellInit = "source ${./interactiveInit.zsh}";
-    };
+    interactiveShellInit = "source ${./interactiveInit.zsh}";
+  };
 
-    environment.variables = {
-      PATH = "/usr/local/opt/ccache/libexec:$PATH:~/.cargo/bin:~/go_appengine:~/.cabal/bin:/usr/local/opt/ruby/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/usr/local/share/npm/bin:/usr/texbin:/Users/bkase/android-sdk/tools:/Users/bkase/android-sdk/platform-tools:/Users/bkase/android-ndk-r9b:/Users/bkase/google-cloud-sdk/bin:~/bin:/Users/bkase/.local/bin:/Library/TeX/texbin";
-    };
+  environment.variables = {
+    PATH = "/usr/local/opt/ccache/libexec:$PATH:~/.cargo/bin:~/go_appengine:~/.cabal/bin:/usr/local/opt/ruby/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/usr/local/share/npm/bin:/usr/texbin:/Users/bkase/android-sdk/tools:/Users/bkase/android-sdk/platform-tools:/Users/bkase/android-ndk-r9b:/Users/bkase/google-cloud-sdk/bin:~/bin:/Users/bkase/.local/bin:/Library/TeX/texbin";
+  };
 
-  }
+}

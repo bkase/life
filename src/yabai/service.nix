@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
-let yabai = pkgs.callPackage ./c.nix {
-  inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa CoreServices IOKit ScriptingBridge;
-}; in
+let
+  yabai = pkgs.callPackage ./c.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa CoreServices IOKit ScriptingBridge;
+  };
+in
 {
   # yabai
   # TODO: Refactor this to be cleaner
@@ -56,10 +58,11 @@ let yabai = pkgs.callPackage ./c.nix {
 
   launchd.user.agents.yabai = {
     path = [ "${yabai}/bin" config.environment.systemPath ];
-    serviceConfig.ProgramArguments = [ "${yabai}/bin/yabai"
-                                       "-c"
-                                       "/etc/yabairc"
-                                     ];
+    serviceConfig.ProgramArguments = [
+      "${yabai}/bin/yabai"
+      "-c"
+      "/etc/yabairc"
+    ];
     serviceConfig.RunAtLoad = true;
     serviceConfig.KeepAlive = true;
     serviceConfig.ProcessType = "Interactive";

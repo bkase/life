@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, fetchurl, lib } :
+{ stdenv, fetchzip, fetchurl, lib }:
 
 let
   version = "0.2.1";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   name = "scmpuff-${version}";
 
-  buildInputs = [ ];
+  buildInputs = [];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -30,4 +30,3 @@ stdenv.mkDerivation rec {
     license = stdenv.lib.licenses.mit;
   };
 }
-

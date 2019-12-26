@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub } :
+{ stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   version = "0.1.0";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "005nz6jirkj7214i1n557xjr69rkzmj6wbkswh90cz3441b40xy8";
   };
 
-  buildInputs = [ ];
+  buildInputs = [];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -24,5 +24,3 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/bkase/archey-osx";
   };
 }
-
-
