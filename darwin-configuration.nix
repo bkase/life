@@ -42,10 +42,15 @@ in
       # Ensure screenshots folder exists
       mkdir -p ${screenshots-folder}
 
-      # Regnerate .gitignore
+      # Regenerate .gitignore
       echo "regenerating global .gitignore..."
       cat ${./src/gitignore} > ~/.gitignore
       git config --global core.excludesfile ~/.gitignore
+
+      # Regenerate ~/.vim files
+      echo "regenerating ~/.vim files..."
+      mkdir -p ~/.vim
+      cat ${./src/vim/coc-settings.json} > ~/.vim/coc-settings.json
     '';
 
     environment.systemPackages = [
