@@ -282,6 +282,9 @@
 
         let g:neoformat_enabled_haskell = ['ormolu']
 
+        let g:neoformat_nix_nixpkgsfmt = { 'exe': 'nixpkgs-fmt', 'args': [], 'replace': 1 }
+        let g:neoformat_enabled_nix = ['nixpkgsfmt']
+
         augroup fmt
           autocmd!
           autocmd BufWritePre * undojoin | Neoformat
