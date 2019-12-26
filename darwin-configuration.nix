@@ -24,16 +24,20 @@ in
     ./src/vim/c.nix
   ];
 
-  launchd.user.agents.barbq = {
-    path = [ "${barbq}/bin" config.environment.systemPath ];
-    serviceConfig.ProgramArguments = [ "/Users/bkase/Applications/Nix\ Apps/Alacritty.app/Contents/MacOS/alacritty"
-      "-d" "180" "1"
-      "--position" "0" "0"
-      "-e" "${barbq}/bin/barbq"
-    ];
-    serviceConfig.RunAtLoad = true;
-    serviceConfig.KeepAlive = true;
-  };
+  launchd.user.agents.barbq =
+    let script = pkgs.writeScriptBin "statusbar" ''
+      #!${pkgs.stdenv.shell}
+
+      ${yabai}/bin/yabai -m rule --add app=Alacritty sticky=on
+
+      /Users/bkase/Applications/Nix\ Apps/Alacritty.app/Contents/MacOS/alacritty -d 180 1 --position 0 0 -e ${barbq}/bin/barbq
+    ''; in
+    {
+      path = [ "${barbq}/bin" config.environment.systemPath ];
+      serviceConfig.ProgramArguments = [ "${script}/bin/statusbar" ];
+      serviceConfig.RunAtLoad = true;
+      serviceConfig.KeepAlive = true;
+    };
 
   system.activationScripts.postActivation.text = ''
       # Regenerate ~/.config files
