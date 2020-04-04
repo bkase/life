@@ -23,9 +23,12 @@
         "--stdio"
       ],
       "filetypes": [
-        "ocaml",
-        "reason"
+        "ocaml"
       ]
+    },
+    "reason": {
+      "command": "reason-language-server",
+      "filetypes": ["reason"]
     }
   },
   "diagnostic.errorSign": "✘",
