@@ -84,7 +84,7 @@ in
     terraform
 
     haskellPackages.ormolu
-    (all-hies.bios.selection { selector = p: { inherit (p) ghc865; }; })
+    (all-hies.selection { selector = p: { inherit (p) ghc865; }; })
 
     nixpkgs-fmt
   ];
