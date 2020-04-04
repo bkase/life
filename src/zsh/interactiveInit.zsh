@@ -136,6 +136,8 @@ vff() {
 export NIX_PATH="darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:/nix/var/nix/profiles/per-user/root/channels:$HOME/.nix-defexpr/channels"
 export NIX_SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
 
+export WASMER_DIR="/Users/bkase/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
 eval $(opam config env)
 
