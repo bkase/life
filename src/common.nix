@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 let
   fastarcheyosx = pkgs.callPackage ./fastarcheyosx/c.nix {};
   scmpuff = pkgs.callPackage ./scmpuff/c.nix {};
@@ -88,5 +87,8 @@ in
     direnv
     lorri
     niv
+
+    dhall
+    dhall-json
   ];
 }
