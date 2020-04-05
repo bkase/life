@@ -16,16 +16,13 @@ let
   ];
   python-with-my-packages = pkgs.python3.withPackages my-python-packages;
   # ormolu is a haskell pretty printer
-  ormolu-source = pkgs.fetchFromGitHub {
-    owner = "tweag";
-    repo = "ormolu";
-    rev = "de279d80122b287374d4ed87c7b630db1f157642"; # update as necessary
-    sha256 = "0qrxfk62ww6b60ha9sqcgl4nb2n5fhf66a65wszjngwkybwlzmrv"; # as well
-  };
-  ormolu = import ormolu-source { pkgs = pkgs; };
-  haskellPackages = pkgs.haskell.packages.ghc865.override {
-    overrides = ormolu.ormoluOverlay;
-  };
+  #ormolu-source = pkgs.fetchFromGitHub {
+  #  owner = "tweag";
+  #  repo = "ormolu";
+  #  rev = "57d0d11b378fad14dd373ae1e2046097ca27122e"; # update as necessary
+  #  sha256 = "0qrxfk62ww6b60ha9sqcgl4nb2n5fhf66a65wszjngwkybwlzmrv"; # as well
+  #};
+  #ormolu = import ormolu-source { pkgs = pkgs; };
 in
 {
   nixpkgs.config.packageOverrides = pkgs: rec {
@@ -74,7 +71,7 @@ in
 
     rustup
 
-    texlive.combined.scheme-full
+    # texlive.combined.scheme-full
 
     python-with-my-packages
     jrnl
@@ -87,5 +84,9 @@ in
     (all-hies.selection { selector = p: { inherit (p) ghc865; }; })
 
     nixpkgs-fmt
+
+    direnv
+    lorri
+    niv
   ];
 }

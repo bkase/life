@@ -140,4 +140,5 @@ export WASMER_DIR="/Users/bkase/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
 eval $(opam config env)
+eval "$(direnv hook zsh)"
 
