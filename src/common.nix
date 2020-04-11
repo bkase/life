@@ -90,5 +90,7 @@ in
 
     dhall
     dhall-json
+
+    buildkite-agent
   ];
 }
