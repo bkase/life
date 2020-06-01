@@ -9,12 +9,12 @@
 
 stdenv.mkDerivation rec {
   pname = "yabai";
-  version = "2.1.3";
+  version = "3.0.2";
   src = fetchFromGitHub {
     owner = "koekeishiya";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1g8ilbnr0vs4gn4a17jdrlhl3x3jrb5c43cgpwnzxc518dcyba2f";
+    sha256 = "16y719384f9bx8zwfsjk5v2nyjyf43m154idsfzxpx0bbl8w5bpj";
   };
 
   buildInputs = [ Carbon Cocoa CoreServices IOKit ScriptingBridge ];
