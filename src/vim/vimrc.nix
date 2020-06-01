@@ -284,6 +284,8 @@
 
         let g:neoformat_nix_nixpkgsfmt = { 'exe': 'nixpkgs-fmt', 'args': [], 'replace': 1 }
         let g:neoformat_enabled_nix = ['nixpkgsfmt']
+        " Disable dhall auto-format by default
+        let g:neoformat_enabled_dhall = []
 
         augroup fmt
           autocmd!

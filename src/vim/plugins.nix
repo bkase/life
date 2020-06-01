@@ -159,6 +159,8 @@
         "vim-search-pulse"
 
         "vim-wakatime"
+        # the ft_regex didn't work for some reason
+        "dhall-vim"
       ];
     }
     # "vim-elixir"
@@ -187,7 +189,6 @@
     { names = [ "vim-markdown" ]; ft_regex = "^\.md\$|^\.markdown\$"; }
     { names = [ "idris-vim" ]; ft_regex = "^\.idr\$"; }
     { names = [ "vim-pony" ]; ft_regex = "^\.pony\$"; }
-    { names = [ "dhall-vim" ]; ft_regex = "^\.dhall\$"; }
     { names = [ "vim-nix" ]; ft_regex = "^\.nix\$"; }
   ];
 }
