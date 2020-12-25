@@ -3,9 +3,7 @@ let
   fastarcheyosx = pkgs.callPackage ./fastarcheyosx/c.nix {};
   scmpuff = pkgs.callPackage ./scmpuff/c.nix {};
   highlight = pkgs.callPackage ./highlight/c.nix {};
-  bat = pkgs.callPackage ./bat/c.nix {};
   archeyProg = if pkgs.stdenv.isDarwin then fastarcheyosx else pkgs.screenfetch;
-  all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
   my-python-packages = python-packages: with python-packages; [
     requests
     jinja2
@@ -80,7 +78,6 @@ in
     terraform
 
     haskellPackages.ormolu
-    (all-hies.selection { selector = p: { inherit (p) ghc865; }; })
 
     nixpkgs-fmt
 
