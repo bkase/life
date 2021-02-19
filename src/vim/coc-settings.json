@@ -17,18 +17,14 @@
         }
       },
     },
-    "ocaml": {
-      "command": "ocaml-language-server",
+    "ocaml-lsp": {
+      "command": "opam",
       "args": [
-        "--stdio"
+        "config", "exec", "--", "ocamllsp"
       ],
       "filetypes": [
-        "ocaml"
+        "ocaml", "reason"
       ]
-    },
-    "reason": {
-      "command": "reason-language-server",
-      "filetypes": ["reason"]
     }
   },
   "diagnostic.errorSign": "✘",
