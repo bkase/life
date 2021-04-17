@@ -2,14 +2,13 @@
 , fetchFromGitHub
 , Carbon
 , Cocoa
-, CoreServices
-, IOKit
 , ScriptingBridge
+, xxd
 }:
 
 stdenv.mkDerivation rec {
   pname = "yabai";
-  version = "3.0.2";
+  version = "3.3.7";
   src = fetchFromGitHub {
     owner = "koekeishiya";
     repo = pname;
@@ -17,11 +16,17 @@ stdenv.mkDerivation rec {
     sha256 = "16y719384f9bx8zwfsjk5v2nyjyf43m154idsfzxpx0bbl8w5bpj";
   };
 
-  buildInputs = [ Carbon Cocoa CoreServices IOKit ScriptingBridge ];
+  preConfigure = ''
+    export CC='/usr/bin/clang'
+  '';
+
+  buildInputs = [ Carbon Cocoa ScriptingBridge xxd ];
 
   installPhase = ''
-    install -d $out/bin
-    cp bin/yabai $out/bin
+    mkdir -p $out/bin
+    mkdir -p $out/share/man/man1/
+    cp ./bin/yabai $out/bin/yabai
+    cp ./doc/yabai.1 $out/share/man/man1/yabai.1
   '';
 
   meta = with stdenv.lib; {
