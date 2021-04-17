@@ -5,11 +5,11 @@ let
       src = pkgs.fetchFromGitHub {
         owner = "bkase";
         repo = "barbq";
-        rev = "50a75b51e7cfb98c697c7a7ce320ea6acb699c72";
-        sha256 = "0d1rfgz64kc7z4cxyasxm8rlaw8shfr1r7jqikjpragi0zlr2r1y";
+        rev = "c1467af2b1c52423ee32b84e40b25b1902cf0bf2";
+        sha256 = "1jsfcjnpyj9j1vg5341l4zdww7slqp48l8yh7b5mlkgxmhl3k39m";
       };
     in
-      (import "${src}/release.nix").barbq;
+    (import "${src}/release.nix").barbq;
 in
 let
   screenshots-folder = "/Users/bkase/screenshots";
@@ -30,20 +30,20 @@ in
 
         /Users/bkase/yabai/bin/yabai -m rule --add app=Alacritty sticky=on
 
-        /Users/bkase/Applications/Nix\ Apps/Alacritty.app/Contents/MacOS/alacritty -d 180 1 --position 0 0 -e ${barbq}/bin/barbq
+        /Users/bkase/Applications/Nix\ Apps/Alacritty.app/Contents/MacOS/alacritty -o window.dimensions.columns=180 -o window.dimensions.lines=1 -o window.position.x=0 -o window.position.y=0 -e ${barbq}/bin/barbq
       '';
     in
-      {
-        path = [ "/Users/bkase/yabai/bin" "${barbq}/bin" config.environment.systemPath ];
-        serviceConfig.ProgramArguments = [ "${script}/bin/statusbar" ];
-        serviceConfig.RunAtLoad = true;
-        serviceConfig.KeepAlive = true;
-      };
+    {
+      path = [ "/Users/bkase/yabai/bin" "${barbq}/bin" config.environment.systemPath ];
+      serviceConfig.ProgramArguments = [ "${script}/bin/statusbar" ];
+      serviceConfig.RunAtLoad = true;
+      serviceConfig.KeepAlive = true;
+    };
 
   launchd.user.agents.lorri = {
     serviceConfig = {
       WorkingDirectory = (builtins.getEnv "HOME");
-      EnvironmentVariables = {};
+      EnvironmentVariables = { };
       KeepAlive = true;
       RunAtLoad = true;
       StandardOutPath = "/var/tmp/lorri.log";

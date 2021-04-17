@@ -43,7 +43,6 @@ in
     ocaml
     opam
     ocamlPackages.merlin
-    ocamlPackages.camlp4
 
     # Doesn't build on macOS right now
     # coq
