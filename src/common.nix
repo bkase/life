@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 let
-  fastarcheyosx = pkgs.callPackage ./fastarcheyosx/c.nix {};
-  scmpuff = pkgs.callPackage ./scmpuff/c.nix {};
-  highlight = pkgs.callPackage ./highlight/c.nix {};
+  fastarcheyosx = pkgs.callPackage ./fastarcheyosx/c.nix { };
+  scmpuff = pkgs.callPackage ./scmpuff/c.nix { };
+  highlight = pkgs.callPackage ./highlight/c.nix { };
   archeyProg = if pkgs.stdenv.isDarwin then fastarcheyosx else pkgs.screenfetch;
   my-python-packages = python-packages: with python-packages; [
     requests
@@ -39,13 +39,6 @@ in
     scmpuff
     highlight
     watchman
-
-    ocaml
-    opam
-    ocamlPackages.merlin
-
-    # Doesn't build on macOS right now
-    # coq
 
     asciinema
     fzf
