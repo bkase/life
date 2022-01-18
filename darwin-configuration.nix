@@ -1,44 +1,12 @@
 { config, pkgs, ... }:
-let
-  barbq =
-    let
-      src = pkgs.fetchFromGitHub {
-        owner = "bkase";
-        repo = "barbq";
-        rev = "c1467af2b1c52423ee32b84e40b25b1902cf0bf2";
-        sha256 = "1jsfcjnpyj9j1vg5341l4zdww7slqp48l8yh7b5mlkgxmhl3k39m";
-      };
-    in
-    (import "${src}/release.nix").barbq;
-in
-let
-  screenshots-folder = "/Users/bkase/screenshots";
-in
 {
   imports = [
-    ./src/yabai/service.nix
     ./src/dotconfig/c.nix
+    ./src/yabai/service.nix
     ./src/common.nix
     ./src/zsh/c.nix
     ./src/vim/c.nix
   ];
-
-  launchd.user.agents.barbq =
-    let
-      script = pkgs.writeScriptBin "statusbar" ''
-        #!${pkgs.stdenv.shell}
-
-        /Users/bkase/yabai/bin/yabai -m rule --add app=Alacritty sticky=on
-
-        /Users/bkase/Applications/Nix\ Apps/Alacritty.app/Contents/MacOS/alacritty -o window.dimensions.columns=180 -o window.dimensions.lines=1 -o window.position.x=0 -o window.position.y=0 -e ${barbq}/bin/barbq
-      '';
-    in
-    {
-      path = [ "/Users/bkase/yabai/bin" "${barbq}/bin" config.environment.systemPath ];
-      serviceConfig.ProgramArguments = [ "${script}/bin/statusbar" ];
-      serviceConfig.RunAtLoad = true;
-      serviceConfig.KeepAlive = true;
-    };
 
   launchd.user.agents.lorri = {
     serviceConfig = {
@@ -59,9 +27,6 @@ in
     # Regenerate ~/.config files
     /etc/dotconfig/bin/generate
 
-    # Ensure screenshots folder exists
-    mkdir -p ${screenshots-folder}
-
     # Regenerate .gitignore
     echo "regenerating global .gitignore..."
     cat ${./src/gitignore} > ~/.gitignore
@@ -75,9 +40,6 @@ in
 
   environment.systemPackages = [
     config.programs.vim.package
-    pkgs.kitty
-    pkgs.alacritty
-    barbq
   ];
 
   environment.extraOutputsToInstall = [ "man" ];
@@ -89,7 +51,6 @@ in
   system.defaults.dock.orientation = "left";
   system.defaults.dock.showhidden = true;
   system.defaults.dock.mru-spaces = false;
-  system.defaults.screencapture.location = "${screenshots-folder}";
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.QuitMenuItem = true;
   system.defaults.finder.FXEnableExtensionChangeWarning = false;
@@ -99,10 +60,7 @@ in
 
   services.skhd.enable = true;
 
-  #programs.nix-index.enable = true;
-
   services.nix-daemon.enable = true;
-  #  nix.package = pkgs.nixUnstable;
 
   # SKHD
   services.skhd.skhdConfig = builtins.readFile ./src/skhdrc;
@@ -154,6 +112,6 @@ in
   # $ darwin-rebuild changelog
   system.stateVersion = 3;
 
-  nix.maxJobs = 8;
-  nix.buildCores = 8;
+  nix.maxJobs = 16;
+  nix.buildCores = 16;
 }

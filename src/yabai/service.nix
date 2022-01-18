@@ -1,38 +1,48 @@
 { config, pkgs, ... }:
 {
-  services.yabai = {
-    enable = true;
-    package = pkgs.yabai;
-    enableScriptingAddition = true;
-    config = {
-      focus_follows_mouse = "autoraise";
-      mouse_follows_focus = "on";
-      window_placement = "second_child";
-      window_opacity = "off";
-      window_opacity_duration = "0.0";
-      window_border = "on";
-      window_border_placement = "inset";
-      window_border_width = 4;
-      window_border_radius = 0;
-      active_window_border_topmost = "off";
-      window_topmost = "on";
-      window_shadow = "float";
-      active_window_border_color = "0xff5c7e81";
-      normal_window_border_color = "0x00505050";
-      insert_window_border_color = "0xffd75f5f";
-      active_window_opacity = "1.0";
-      normal_window_opacity = "1.0";
-      split_ratio = "0.50";
-      auto_balance = "off";
-      mouse_modifier = "fn";
-      mouse_action1 = "move";
-      mouse_action2 = "resize";
-      layout = "bsp";
-      top_padding = 30;
-      bottom_padding = 5;
-      left_padding = 5;
-      right_padding = 5;
-      window_gap = 5;
-    };
+  # yabai
+  # TODO: Refactor this to be cleaner
+  environment.etc."yabairc".source = pkgs.writeScript "etc-yabairc" (
+    ''
+      #!/usr/bin/env sh
+      # global settings
+      export _YABAI=/Users/bkase/yabai/bin/yabai
+
+      $_YABAI -m config mouse_follows_focus          on
+      $_YABAI -m config focus_follows_mouse          autofocus
+      $_YABAI -m config window_origin_display        default
+      $_YABAI -m config window_placement             second_child
+      $_YABAI -m config window_topmost               off
+      $_YABAI -m config window_opacity               off
+      $_YABAI -m config window_shadow                off
+      $_YABAI -m config window_border                off
+      $_YABAI -m config active_window_opacity        1.0
+      $_YABAI -m config normal_window_opacity        1.0
+      $_YABAI -m config split_ratio                  0.50
+      $_YABAI -m config auto_balance                 off
+      $_YABAI -m config mouse_modifier               fn
+      $_YABAI -m config mouse_action1                move
+      $_YABAI -m config mouse_action2                resize
+
+      # general space settings
+      $_YABAI -m config layout                       bsp
+      $_YABAI -m config top_padding                  5
+      $_YABAI -m config bottom_padding               5
+      $_YABAI -m config left_padding                 5
+      $_YABAI -m config right_padding                5
+      $_YABAI -m config window_gap                   5
+    ''
+  );
+
+  launchd.user.agents.yabai = {
+    path = [ "/bin" config.environment.systemPath ];
+    serviceConfig.ProgramArguments = [
+      "/Users/bkase/yabai/bin/yabai"
+      "-c"
+      "/etc/yabairc"
+    ];
+    serviceConfig.RunAtLoad = true;
+    serviceConfig.KeepAlive = true;
+    serviceConfig.ProcessType = "Interactive";
   };
 }

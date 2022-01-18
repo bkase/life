@@ -3,6 +3,7 @@
   environment.etc."dotconfig".source = pkgs.writeScriptBin "generate" ''
     #!${pkgs.stdenv.shell}
 
+    mkdir -p ~/.config
     pushd ~/.config > /dev/null
 
     echo "generating kitty.conf..."
