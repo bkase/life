@@ -114,4 +114,10 @@
 
   nix.maxJobs = 16;
   nix.buildCores = 16;
+
+  nix.package = pkgs.nixUnstable;
+  nix.extraOptions = ''
+    extra-platforms = aarch64-darwin x86_64-darwin
+    experimental-features = nix-command flakes
+  '';
 }

@@ -113,18 +113,6 @@
         };
       };
 
-      coc-nvim-custom = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
-        pname = "coc-nvim";
-        version = "2020-01-14";
-        src = pkgs.fetchFromGitHub {
-          owner = "neoclide";
-          repo = "coc.nvim";
-          rev = "9bb31f9d03af2fc52f98ec65020b34efdc496883";
-          sha256 = "0w7qnhi7wikr789h3w5p59l8wd81czpvbzbdanf8klf9ap4ma3yg";
-        };
-      };
-
-
     }
   );
   plugins = [
@@ -132,7 +120,7 @@
       names = [
         # "coquille"
         "vimbufsync"
-        "coc-nvim-custom"
+        "coc-nvim"
 
         "vim-addon-nix"
         "lightline-vim"

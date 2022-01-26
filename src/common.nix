@@ -44,8 +44,6 @@ in
 
     cachix
 
-    # haskellPackages.ormolu
-
     nixpkgs-fmt
 
     direnv

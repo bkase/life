@@ -1,21 +1,10 @@
 {
   "languageserver": {
-     "haskell": {
-      "command": "hie-wrapper",
-      "rootPatterns": [
-        ".stack.yaml",
-        "cabal.config",
-        "package.yaml"
-      ],
-      "filetypes": [
-        "hs",
-        "lhs",
-        "haskell"
-      ],
-      "initializationOptions": {
-        "languageServerHaskell": {
-        }
-      },
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
+      "filetypes": ["haskell", "lhaskell"]
     },
     "ocaml-lsp": {
       "command": "opam",
