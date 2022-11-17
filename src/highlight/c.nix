@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, clang, getopt, lua, boost, pkgconfig }:
+{ stdenv, lib, fetchurl, clang, getopt, lua, boost, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "highlight-${version}";
@@ -21,9 +21,8 @@ stdenv.mkDerivation rec {
     alias g++=clang
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Source code highlighting tool";
     homepage = "http://www.andre-simon.de/doku/highlight/en/highlight.php";
-    maintainers = maintainers.ndowens;
   };
 }
