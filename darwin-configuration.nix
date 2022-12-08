@@ -71,10 +71,6 @@
   nixpkgs.overlays = [
     (
       self: super: {
-        my_vim_configurable = super.vim_configurable.override {
-          guiSupport = "no";
-        };
-
         darwin-zsh-completions = super.runCommandNoCC "darwin-zsh-completions-0.0.0"
           { preferLocalBuild = true; }
           ''
@@ -112,8 +108,8 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 3;
 
-  nix.maxJobs = 16;
-  nix.buildCores = 16;
+  nix.settings.max-jobs = 16;
+  nix.settings.cores = 16;
 
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
