@@ -44,6 +44,9 @@ in
           nvim-treesitter.withAllGrammars
           coq_nvim
           lspsaga-nvim
+
+          lightline-vim
+          lightline-lsp
         ];
       };
     };

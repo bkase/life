@@ -13,6 +13,6 @@ vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = tr
 vim.keymap.set("n", "<leader>e", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 
 
-
-
+-- git signs
+require('gitsigns').setup()
 

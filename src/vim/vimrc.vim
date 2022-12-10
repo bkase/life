@@ -187,42 +187,48 @@
   "make solarized dark the default
   set bg=dark
 
-nction! LightlineModified()
-return &ft =~ 'help\|vimfiler\|gundo' ? "" : &modified ? '+' : &modifiable ? "" : '-'
-dfunction
+  function! LightlineModified()
+    return &ft =~ 'help\|vimfiler\|gundo' ? "" : &modified ? '+' : &modifiable ? "" : '-'
+  endfunction
 
-nction! LightlineReadonly()
-return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '' : ""
-dfunction
+  function! LightlineReadonly()
+    return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '' : ""
+  endfunction
 
-nction! LightlineFilename()
-return ("" != LightlineReadonly() ? LightlineReadonly() . ' ' : "") .
-      \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-      \  &ft == 'unite' ? unite#get_status_string() :
-      \  &ft == 'vimshell' ? vimshell#get_status_string() :
-      \ "" != expand('%:t') ? expand('%:t') : '[No Name]') .
-      \ ("" != LightlineModified() ? ' ' . LightlineModified() : "")
-dfunction
+  function! LightlineFilename()
+    return ("" != LightlineReadonly() ? LightlineReadonly() . ' ' : "") .
+          \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+          \  &ft == 'unite' ? unite#get_status_string() :
+          \  &ft == 'vimshell' ? vimshell#get_status_string() :
+          \ "" != expand('%:t') ? expand('%:t') : '[No Name]') .
+          \ ("" != LightlineModified() ? ' ' . LightlineModified() : "")
+  endfunction
 
-nction! LightlineFugitive()
-if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
-  let branch = fugitive#head()
-  return branch !=# "" ? ' '.branch : ""
-endif
-return ""
-dfunction
+  function! LightlineFugitive()
+    if &ft !~? 'vimfiler\|gundo' && exists("b:gitsigns_head")
+      let branch = b:gitsigns_head
+      return branch !=# "" ? ' '.branch : ""
+    endif
+    return ""
+  endfunction
 
-nction! LightlineFileformat()
-return winwidth(0) > 70 ? &fileformat : ""
-dfunction
+  function! LightlineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ""
+  endfunction
 
-nction! LightlineFiletype()
-return winwidth(0) > 70 ? (&filetype !=# "" ? &filetype : 'no ft') : ""
-dfunction
+  function! LightlineFiletype()
+    return winwidth(0) > 70 ? (&filetype !=# "" ? &filetype : 'no ft') : ""
+  endfunction
 
-nction! LightlineMode()
-return winwidth(0) > 60 ? lightline#mode() : ""
-dfunction
+  function! LightlineMode()
+    return winwidth(0) > 60 ? lightline#mode() : ""
+  endfunction
+
+  let g:lightline#lsp#indicator_hints = "\uf002"
+  let g:lightline#lsp#indicator_infos = "\uf129"
+  let g:lightline#lsp#indicator_warnings = "\uf071"
+  let g:lightline#lsp#indicator_errors = "\uf05e"
+  let g:lightline#lsp#indicator_ok = "\uf00c"
 
   let g:lightline = {
     \ 'colorscheme': 'solarized',
@@ -230,10 +236,17 @@ dfunction
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
-    \   'right': [ [ 'cocstatus'],
+    \   'right': [ [ 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_hints', 'linter_ok'],
     \              [ 'lineinfo' ],
-    \              [ 'percent' ] ]
+    \              [ 'percent' ] ],
     \ },
+    \ 'component_expand': {
+    \   'linter_hints': 'lightline#lsp#hints',
+    \   'linter_infos': 'lightline#lsp#infos',
+    \   'linter_warnings': 'lightline#lsp#warnings',
+    \   'linter_errors': 'lightline#lsp#errors',
+    \   'linter_ok': 'lightline#lsp#ok',
+    \  },
     \ 'component': {
     \   'lineinfo': ' %3l:%-2v',
     \ },
@@ -243,7 +256,6 @@ dfunction
     \   'fugitive': 'LightlineFugitive',
     \   'modified': 'LightlineModified',
     \   'mode': 'LightlineMode',
-    \   'cocstatus': 'coc#status',
     \ },
     \ 'separator': { 'left': '', 'right': '' },
     \ 'subseparator': { 'left': '', 'right': '' }
@@ -354,6 +366,8 @@ dfunction
   hi DiagnosticWarn ctermfg=3
   hi DiagnosticError ctermfg=1
 
+  " fix gutter colors
+  hi SignColumn ctermbg=1
 
   let g_fzf_layout = { 'down': '~40%' }
   set rtp+=~/.fzf
