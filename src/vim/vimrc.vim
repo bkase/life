@@ -367,7 +367,7 @@
   hi DiagnosticError ctermfg=1
 
   " fix gutter colors
-  hi SignColumn ctermbg=1
+  hi SignColumn ctermbg=0
 
   let g_fzf_layout = { 'down': '~40%' }
   set rtp+=~/.fzf
