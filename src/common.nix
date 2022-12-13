@@ -54,5 +54,9 @@ in
     dhall-json
 
     buildkite-agent
+
+    nodePackages.typescript
+    nodePackages.typescript-language-server
+    nodePackages."@tailwindcss/language-server"
   ];
 }
