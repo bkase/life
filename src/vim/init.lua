@@ -15,3 +15,8 @@ vim.keymap.set("n", "<leader>e", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { s
 
 -- git signs
 require'gitsigns'.setup()
+
+-- gruvbox
+require("gruvbox").setup{}
+vim.cmd("colorscheme gruvbox")
+

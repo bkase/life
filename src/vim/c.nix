@@ -26,7 +26,7 @@ in
 
           polyglot
 
-          Solarized
+          gruvbox-nvim
 
           The_NERD_Commenter
 

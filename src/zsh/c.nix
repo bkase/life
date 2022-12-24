@@ -3,12 +3,12 @@ let
   pureZshSrc = pkgs.fetchFromGitHub {
     owner = "bkase";
     repo = "pure";
-    rev = "73c37b738ef5fa608404d827ba274e1c43a73a8f";
+    rev = "e12cadc69a576efcea829f3cc4568c0eb6bcbee8";
     sha256 = "0dbdkbvx5jbfjax02hllrbkaz6zc1b2a91953k63yyh8m5f9k6cv";
   };
   pureZsh = pkgs.stdenvNoCC.mkDerivation rec {
     name = "pure-zsh-${version}";
-    version = "2017-03-04";
+    version = "2022-12-24";
     phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
     src = pureZshSrc;
 
@@ -40,6 +40,8 @@ in
       source ${./fastCompleteInit.zsh}
       # load bash completion
       autoload -U +X bashcompinit && bashcompinit
+
+      export PURE_PROMPT_SYMBOL="𝝺"
 
       # enable my pure prompt fork
       fpath+=( "${pureZsh.out}/share/zsh/site-functions" $fpath )

@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 let
   fastarcheyosx = pkgs.callPackage ./fastarcheyosx/c.nix { };
-  highlight = pkgs.callPackage ./highlight/c.nix { };
   archeyProg = if pkgs.stdenv.isDarwin then fastarcheyosx else pkgs.screenfetch;
 in
 {
@@ -17,8 +16,6 @@ in
     bsdiff
 
     archeyProg
-    highlight
-    watchman
 
     asciinema
     fzf
@@ -31,6 +28,7 @@ in
     go
     fasd
     bat
+    fd
 
     nodejs
     pandoc
@@ -41,6 +39,7 @@ in
 
     python3
     exa
+    vivid
 
     cachix
 

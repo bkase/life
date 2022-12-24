@@ -67,9 +67,6 @@
   " enable mouse
   set mouse=a
 
-  "set colorscheme
-  colorscheme solarized
-
   "allows sudo with :w!!
   cmap w!! %!sudo tee > /dev/null %
 
@@ -184,8 +181,8 @@
   autocmd BufRead,BufNewFile *.ispc set filetype=ispc
   autocmd BufRead,BufNewFile *todo.txt set filetype=todo.txt
 
-  "make solarized dark the default
-  set bg=dark
+  "make gruvbox light the default
+  set bg=light
 
   function! LightlineModified()
     return &ft =~ 'help\|vimfiler\|gundo' ? "" : &modified ? '+' : &modifiable ? "" : '-'
@@ -231,7 +228,7 @@
   let g:lightline#lsp#indicator_ok = "\uf00c"
 
   let g:lightline = {
-    \ 'colorscheme': 'solarized',
+    \ 'colorscheme': 'gruvbox',
     \ 'mode_map': { 'c': 'NORMAL' },
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
@@ -379,7 +376,7 @@
     endif
 
   let g:fzf_files_options =
-    \ '--preview "(highlight -O ansi {} | cat {}) 2> /dev/null | head -'.&lines.'"'
+    \ '--preview "bat --theme=gruvbox-light --style=numbers --color=always --line-range :500 {}"'
 
   command! -bang -nargs=* GGrep
    \ call fzf#vim#grep(
