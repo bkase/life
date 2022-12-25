@@ -36,6 +36,9 @@
     echo "regenerating ~/.vim files..."
     mkdir -p ~/.vim
     cat ${./src/vim/coc-settings.json} > ~/.vim/coc-settings.json
+
+    echo "regenerating ~/.direnvrc..."
+    echo "source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc" > ~/.direnvrc
   '';
 
   environment.systemPackages = [
@@ -71,6 +74,7 @@
   nixpkgs.overlays = [
     (
       self: super: {
+        nix-direnv = super.nix-direnv.override { enableFlakes = true; };
         darwin-zsh-completions = super.runCommandNoCC "darwin-zsh-completions-0.0.0"
           { preferLocalBuild = true; }
           ''
