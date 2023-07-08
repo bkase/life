@@ -4,7 +4,7 @@ let
     owner = "bkase";
     repo = "pure";
     rev = "e12cadc69a576efcea829f3cc4568c0eb6bcbee8";
-    sha256 = "0dbdkbvx5jbfjax02hllrbkaz6zc1b2a91953k63yyh8m5f9k6cv";
+    sha256 = "sha256-xC0PEzHnSR9ccC8EWgbGJnmbNsCR6XG3pBgRN5tLwfM=";
   };
   pureZsh = pkgs.stdenvNoCC.mkDerivation rec {
     name = "pure-zsh-${version}";
