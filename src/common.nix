@@ -57,5 +57,7 @@ in
     nodePackages.typescript
     nodePackages.typescript-language-server
     nodePackages."@tailwindcss/language-server"
+
+    git-lfs
   ];
 }

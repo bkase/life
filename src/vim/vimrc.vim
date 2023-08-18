@@ -473,22 +473,22 @@
 
   "map <leader>tt :TagbarToggle<CR>
 
-  set csprg=hscope
-  set csto=1 " search codex tags first
-  set cst
-  set csverb
-  nnoremap <silent> <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>
-  " Automatically make cscope connections
-  function! LoadHscope()
-    let db = findfile("hscope.out", ".;")
-    if (!empty(db))
-      let path = strpart(db, 0, match(db, "/hscope.out$"))
-      set nocscopeverbose " suppress 'duplicate connection' error
-      exe "cs add " . db . " " . path
-      set cscopeverbose
-    endif
-  endfunction
-  au BufEnter /*.hs call LoadHscope()
+  "set csprg=hscope
+  "set csto=1 " search codex tags first
+  "set cst
+  "set csverb
+  "nnoremap <silent> <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>
+  "" Automatically make cscope connections
+  "function! LoadHscope()
+    "let db = findfile("hscope.out", ".;")
+    "if (!empty(db))
+      "let path = strpart(db, 0, match(db, "/hscope.out$"))
+      "set nocscopeverbose " suppress 'duplicate connection' error
+      "exe "cs add " . db . " " . path
+      "set cscopeverbose
+    "endif
+  "endfunction
+  "au BufEnter /*.hs call LoadHscope()
 
   " }}}
 

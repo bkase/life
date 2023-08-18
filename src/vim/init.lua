@@ -2,6 +2,26 @@
 require'lspconfig'.ocamllsp.setup{}
 require'lspconfig'.tsserver.setup{}
 
+require'lspconfig'.rust_analyzer.setup {
+  -- Server-specific settings. See `:help lspconfig-setup`
+  settings = {
+    ['rust-analyzer'] = {},
+  },
+}
+
+local rt = require("rust-tools")
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<Leader>h", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
+rt.hover_range.hover_range()
+
 local saga = require("lspsaga")
 saga.init_lsp_saga({
   code_action_icon = ""
