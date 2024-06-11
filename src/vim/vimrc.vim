@@ -267,6 +267,7 @@
   let g:neoformat_enabled_nix = ['nixpkgsfmt']
   " Disable dhall auto-format by default
   let g:neoformat_enabled_dhall = []
+  let g:neoformat_enabled_ocaml = ['ocamlformat']
 
   augroup fmt
     autocmd!
