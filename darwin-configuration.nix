@@ -74,7 +74,6 @@
   nixpkgs.overlays = [
     (
       self: super: {
-        nix-direnv = super.nix-direnv.override { enableFlakes = true; };
         darwin-zsh-completions = super.runCommandNoCC "darwin-zsh-completions-0.0.0"
           { preferLocalBuild = true; }
           ''
@@ -115,7 +114,7 @@
   nix.settings.max-jobs = 16;
   nix.settings.cores = 16;
 
-  nix.package = pkgs.nixUnstable;
+  nix.package = pkgs.nixVersions.latest;
   nix.extraOptions = ''
     extra-platforms = aarch64-darwin x86_64-darwin
     experimental-features = nix-command flakes

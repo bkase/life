@@ -38,7 +38,7 @@ in
     texlive.combined.scheme-full
 
     python3
-    exa
+    eza
     vivid
 
     cachix

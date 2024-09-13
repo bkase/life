@@ -1,15 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  vim-circom-syntax = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "vim-circom-syntax-2019-05-15";
-    src = pkgs.fetchFromGitHub {
-      owner = "iden3";
-      repo = "vim-circom-syntax";
-      rev = "da7bb12643086c6907c334c5d049dad58a230ae2";
-      hash = "sha256-drW7eZKE/NmVpkZfiA7nRlgUeqNNDnKA9h1qVADDZ/s=";
-    };
-  };
   coq_nvim =
     let
       python = pkgs.python3;
@@ -96,8 +87,6 @@ in
 
           lightline-vim
           lightline-lsp
-
-          vim-circom-syntax
         ];
       };
     };
