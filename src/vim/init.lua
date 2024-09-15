@@ -40,3 +40,41 @@ require("gruvbox").setup{}
 
 -- avante
 require('avante_lib').load()
+
+local function check_internet_connection()
+  local handle = io.popen("ping -c 1 google.com | grep '1 packets'")
+  local result = handle:read("*a")
+  handle:close()
+  local good = "1 packets transmitted, 1 packets received"
+  return result:sub(1, #good) == good
+end
+
+require('avante').setup{
+  provider = check_internet_connection() and "claude" or "ollama",
+  vendors = {
+    ---@type AvanteProvider
+    ollama = {
+      ["local"] = true,
+      endpoint = "127.0.0.1:11434/v1",
+      model = "codegemma",
+      parse_curl_args = function(opts, code_opts)
+        return {
+          url = opts.endpoint .. "/chat/completions",
+          headers = {
+            ["Accept"] = "application/json",
+            ["Content-Type"] = "application/json",
+          },
+          body = {
+            model = opts.model,
+            messages = require("avante.providers").copilot.parse_message(code_opts), -- you can make your own message, but this is very advanced
+            max_tokens = 2048,
+            stream = true,
+          },
+        }
+      end,
+      parse_response_data = function(data_stream, event_state, opts)
+        require("avante.providers").openai.parse_response(data_stream, event_state, opts)
+      end,
+    },
+  }
+}
