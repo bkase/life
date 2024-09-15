@@ -53,6 +53,8 @@ let
       dressing-nvim
       nui-nvim
       plenary-nvim
+      nvim-web-devicons
+      render-markdown
     ];
   };
 in
@@ -97,6 +99,8 @@ in
           lightline-vim
           lightline-lsp
 
+          nvim-web-devicons
+          render-markdown
           avante-nvim
         ];
       };

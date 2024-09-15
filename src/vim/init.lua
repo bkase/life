@@ -31,12 +31,25 @@ vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = tr
 vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 vim.keymap.set("n", "<leader>e", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 
-
 -- git signs
 require'gitsigns'.setup()
 
 -- gruvbox
 require("gruvbox").setup{}
+
+require("render-markdown").setup{
+  file_types = { 'markdown', 'Avante' }
+}
+
+-- for some reason syntax highlighting on Avante panes don't work unless the ft is really markdown
+-- this snippet will force all Avante filetypes to switch to markdown
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "Avante",
+  callback = function()
+    vim.bo.filetype = "markdown"
+  end,
+  group = vim.api.nvim_create_augroup("OverrideAvanteFiletype", { clear = true }),
+})
 
 -- avante
 require('avante_lib').load()

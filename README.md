@@ -17,7 +17,7 @@
 1. Clone this repo into `~/.nixpkgs`
 1. Add to your bashrc:
 
-```shell
+```bash
 nix-shell ~/.nixpkgs/shell.nix
 ```
 
