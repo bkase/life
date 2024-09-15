@@ -48,6 +48,13 @@ let
         #{ echo -e "\e[48;5;9mupdate ur hashes guy\e[0m"; exit 314; }
       '';
     });
+  avante-nvim = (pkgs.callPackage ./avante-nvim { }).overrideAttrs {
+    dependencies = with pkgs.vimPlugins; [
+      dressing-nvim
+      nui-nvim
+      plenary-nvim
+    ];
+  };
 in
 {
   programs.vim.package = pkgs.neovim.override {
@@ -63,6 +70,8 @@ in
 
           polyglot
 
+          # needs 'gruvbox' for lightline, gruvbox-nvim for the rest
+          gruvbox
           gruvbox-nvim
 
           The_NERD_Commenter
@@ -87,6 +96,8 @@ in
 
           lightline-vim
           lightline-lsp
+
+          avante-nvim
         ];
       };
     };

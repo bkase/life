@@ -1,3 +1,4 @@
+{ rust-overlay, ... }:
 { config, pkgs, ... }:
 {
   imports = [
@@ -72,6 +73,13 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
+    (import rust-overlay)
+    (self: super: {
+      rustPlatform = super.makeRustPlatform {
+        cargo = super.rust-bin.stable.latest.default;
+        rustc = super.rust-bin.stable.latest.default;
+      };
+    })
     (
       self: super: {
         darwin-zsh-completions = super.runCommandNoCC "darwin-zsh-completions-0.0.0"

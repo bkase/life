@@ -182,6 +182,7 @@
   autocmd BufRead,BufNewFile *todo.txt set filetype=todo.txt
 
   "make gruvbox light the default
+  colorscheme gruvbox
   set bg=light
 
   function! LightlineModified()

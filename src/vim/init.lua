@@ -1,6 +1,6 @@
 -- for general lsp
 require'lspconfig'.ocamllsp.setup{}
-require'lspconfig'.tsserver.setup{}
+require'lspconfig'.ts_ls.setup{}
 
 require'lspconfig'.rust_analyzer.setup {
   -- Server-specific settings. See `:help lspconfig-setup`
@@ -22,10 +22,9 @@ rt.setup({
 })
 rt.hover_range.hover_range()
 
-local saga = require("lspsaga")
-saga.init_lsp_saga({
+require("lspsaga").setup{
   code_action_icon = ""
-})
+}
 
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
@@ -38,5 +37,6 @@ require'gitsigns'.setup()
 
 -- gruvbox
 require("gruvbox").setup{}
-vim.cmd("colorscheme gruvbox")
 
+-- avante
+require('avante_lib').load()
