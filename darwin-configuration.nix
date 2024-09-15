@@ -122,6 +122,8 @@
   nix.settings.max-jobs = 16;
   nix.settings.cores = 16;
 
+  nix.settings.trusted-users = [ "root" "bkase" ];
+  nix.settings.substituters = [ "https://cache.nixos.org" "https://storage.googleapis.com/mina-nix-cache" ];
   nix.package = pkgs.nixVersions.latest;
   nix.extraOptions = ''
     extra-platforms = aarch64-darwin x86_64-darwin
