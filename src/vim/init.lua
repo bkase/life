@@ -69,7 +69,7 @@ require('avante').setup{
     ollama = {
       ["local"] = true,
       endpoint = "127.0.0.1:11434/v1",
-      model = "codegemma",
+      model = "qwen2.5-coder",
       parse_curl_args = function(opts, code_opts)
         return {
           url = opts.endpoint .. "/chat/completions",
