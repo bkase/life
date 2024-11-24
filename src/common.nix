@@ -59,5 +59,7 @@ in
     nodePackages."@tailwindcss/language-server"
 
     git-lfs
+
+    hysteria
   ];
 }
