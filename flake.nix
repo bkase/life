@@ -12,7 +12,7 @@
   };
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, rust-overlay }: {
-    darwinConfigurations."Brandons-MacBook-Air" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."Brandons-MacBook-Pro" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
         (import ./darwin-configuration.nix { inherit rust-overlay; })

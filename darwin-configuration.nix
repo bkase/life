@@ -3,7 +3,6 @@
 {
   imports = [
     ./src/dotconfig/c.nix
-    ./src/yabai/service.nix
     ./src/common.nix
     ./src/zsh/c.nix
     ./src/vim/c.nix
@@ -62,12 +61,7 @@
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
 
-  services.skhd.enable = true;
-
   services.nix-daemon.enable = true;
-
-  # SKHD
-  services.skhd.skhdConfig = builtins.readFile ./src/skhdrc;
 
   environment.variables.LANG = "en_US.UTF-8";
 
