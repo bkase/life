@@ -143,3 +143,6 @@ export WASMER_DIR="/Users/bkase/.wasmer"
 
 eval "$(direnv hook zsh)"
 
+eval "$(/Users/bkase/.local/bin/mise activate zsh)"
+
+
